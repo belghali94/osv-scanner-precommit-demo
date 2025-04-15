@@ -1,0 +1,14 @@
+# .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/google/osv-scanner/  # The repo containing the hook
+    rev: v1.8.2  # << IMPORTANT: Use a specific Git tag or commit hash
+    hooks:
+      - id: osv-scanner  # The hook ID provided by the OSV-Scanner repo
+        name: "OSV-Scanner check"  # Optional: Custom name shown during run
+        entry: osv-scanner  # Command to run
+        language: golang  # Specify the language
+        types: [file]  # Trigger on any file changed? Or specific types?
+        args: ["--lockfile=go.mod"]  # << KEY: Pass OSV-Scanner flags here!
+        # Example args for Go: ["--lockfile=go.mod"]
+        # Example args for recursive scan: ["-r", "."]
+        # Example args for SBOM: ["--sbom=bom.json"]
